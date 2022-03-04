@@ -11,8 +11,14 @@
 
 <canvas id="canvas"></canvas>
 <canvas id="myCanvas"></canvas>
-
-</script>
+<canvas id="canvas2" width="300" height="300">
+  An alternative text describing what your canvas displays.
+</canvas>
+<canvas id="my-house" width="300" height="300"></canvas>
+<canvas id="textCanvas" width="550" height="500"></canvas>
+  
+  
+<script>
 
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
@@ -33,6 +39,10 @@ let imageData = new ImageData(arr, 200);
 ctx.putImageData(imageData, 20, 20);
 
 </script>
+  
+  
+  
+<script>
 
 /* function draw2(imgData, coords) {
     "use strict";
@@ -62,8 +72,71 @@ ctx.putImageData(imageData, 20, 20);
 
 }  */
   
+</script>
+  
+<script>
+  /*
+const canvas = document.querySelector('canvas');
+const ctx = canvas.getContext('2d');
+ctx.fillStyle = 'green';
+ctx.fillRect(10, 10, 100, 100);
+  */
+</script>
+  
+  
 <script>
   
+const canvas = document.getElementById('my-house');
+const ctx = canvas.getContext('2d');
+
+  // Set line width
+ctx.lineWidth = 10;
+
+// Wall
+ctx.strokeRect(75, 140, 150, 110);
+
+// Door
+ctx.fillRect(130, 190, 40, 60);
+
+// Roof
+ctx.beginPath();
+ctx.moveTo(50, 140);
+ctx.lineTo(150, 60);
+ctx.lineTo(250, 140);
+ctx.closePath();
+ctx.stroke();
+  
+</script>
+  
+  
+<script>
+  
+  const canvas = document.getElementById('textCanvas');
+const ctx = canvas.getContext('2d');
+
+const baselinesAboveAlphabetic = ['fontBoundingBoxAscent', 'actualBoundingBoxAscent',
+                   'emHeightAscent', 'hangingBaseline'];
+const baselinesBelowAlphabetic = ['ideographicBaseline', 'emHeightDescent',
+                   'actualBoundingBoxDescent', 'fontBoundingBoxDescent'];
+const baselines = [...baselinesAboveAlphabetic, ...baselinesBelowAlphabetic];
+ctx.font = '25px serif';
+ctx.strokeStyle = 'red';
+
+baselines.forEach(function (baseline, index) {
+  let text = 'Abcdefghijklmnop (' + baseline + ')';
+  let textMetrics = ctx.measureText(text);
+  let y = 50 + index * 50;
+  ctx.beginPath();
+  ctx.fillText(text, 0, y);
+  let lineY = y - Math.abs(textMetrics[baseline]);
+  if (baselinesBelowAlphabetic.includes(baseline)) {
+    lineY = y + Math.abs(textMetrics[baseline]);
+  }
+  ctx.moveTo(0, lineY);
+  ctx.lineTo(550, lineY);
+  ctx.stroke();
+
+});
   
 </script>
   
